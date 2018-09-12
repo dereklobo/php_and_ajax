@@ -1,0 +1,40 @@
+<?php
+  // You can simulate a slow server with sleep
+  // sleep(2);
+
+  
+
+  if(!isset($_SESSION['favorites'])) { $_SESSION['favorites'] = array();
+    // echo "the ne/w ".gettype($_SESSION['favorites']);
+  }
+
+  function is_ajax_request() {
+    // echo'welcome & id :'.$id;
+    return isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+      $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
+  }
+
+  if(!is_ajax_request()) { exit; }
+
+  $raw_id = isset($_POST['id'])? $_POST['id']:'';
+  // echo $raw_id;
+  if(preg_match("/blog-post-(\d+)/",$raw_id,$matches)){
+      $id = $matches[1];
+
+    if(count($_SESSION['favorites'])== 0){
+      //$_SESSION['favorites'] = [];
+    }
+      
+    if(!in_array($id,$_SESSION['favorites'])){
+      $_SESSION['favorites'][] = $id;
+    }
+    echo 'true';
+
+  }else{
+    echo 'false';
+  }
+  // extract $id
+  // store in $_SESSION['favorites']
+  // return true/false
+
+?>
