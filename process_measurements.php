@@ -29,7 +29,8 @@
   if(is_ajax_request()) {
     echo json_encode(array('volume' => $volume));
   } else {
-    exit;
+    echo "<p>The total volume is :".$volume."</p>";
+    echo "<p><a href=\"index.php\">Back </a></p>";
   }
 
 ?>

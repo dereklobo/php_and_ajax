@@ -143,7 +143,11 @@
         xhr.send(form_data);
       }
 
-      button.addEventListener("click", calculateMeasurements);
+      button.addEventListener("click", function(event){
+        event.preventDefault();
+        calculateMeasurements();
+
+      });
 
     </script>
 
