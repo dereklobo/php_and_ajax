@@ -1,46 +1,66 @@
 <!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Ajax</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    </head>
-    <body>
-        <div class="container">
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ajax Zip Code</title>
+    <style>
+      #entry {
+        margin: 2em 1em;
+      }
+      #location {
+        margin: 1em;
+      }
+    </style>
+  </head>
+  <body>
 
-            <div id="main">
-                This is the text when the index page loads
-            </div>
-            
-            <button id="ajax_btn" class="btn btn-success" type="button"> Update Content with ajax</button>
-        </div>
+    <div id="entry">
+      Zip code: <input id="zipcode" type="text" name="zipcode" />
+      <button id="ajax-button" type="button">Submit</button>
+    </div>
 
-        <script>
-            function replaceText(){
-                console.log('Button clicked');
-                var main = document.getElementById('main');
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET","new_content.txt",true)
-                xhr.onreadystatechange = function(){
-                    if(xhr.readyState== 2){
-                        
-                        main.innerHTML = 'Loading...';
-                    }
-                    if(xhr.readyState== 4 && xhr.status==200){
-                        
-                        main.innerHTML = xhr.responseText;
-                    }
+    <div id="location">
+    </div>
+
+    <script>
+      // Google asks for all API users to sign up for an API key
+      // For simple tests, still works without an API key
+      var api = 'http://maps.googleapis.com/maps/api/geocode/json';
+
+        function findLocation() {
+            var zipcode = document.getElementById('zipcode');
+            var url = api + '?address=' + zipcode.value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET",url,true)
+            xhr.onreadystatechange = function(){
+                console.log('Ready state :'+xhr.readyState);
+                if(xhr.readyState<4){
+                    showLoading();
                 }
-                xhr.send();
-
+                if(xhr.readyState== 4 && xhr.status==200){
+                    outputLocation(xhr.responseText)
+                    
+                }
             }
+            xhr.send();
+      }
 
-            var btn = document.getElementById("ajax_btn");
-            btn.addEventListener("click",replaceText);
-        </script>
-        
-        
-    </body>
+      function showLoading(){
+          var target = document.getElementById('location');
+          target.innerHTML = "Loading...";
+      }
 
+      function outputLocation(data) {
+        var target = document.getElementById('location');
+        var json = JSON.parse(data);
+        var address = json.results[0].formatted_address;
+        target.innerHTML = address;
+      }
+
+      var button = document.getElementById ("ajax-button");
+      button.addEventListener("click", findLocation);
+    </script>
+
+  </body>
 </html>
