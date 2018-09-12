@@ -1,5 +1,9 @@
+<?php
+  $content = array(
+    'short' => 'New content',
+    'regular' => 'This is the new content which has been loaded by Ajax.',
+    'long' => 'This content is the result of making an Ajax query to a PHP page which dynamically generated text as a response.'
+  );
 
-<?php 
-$var = "new content";
+  echo json_encode($content);
 ?>
-<span >This is the text from the <?php echo $var ;?> php file</span> 

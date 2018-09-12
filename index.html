@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Ajax Text</title>
-  </head>
+  </head> 
   <body>
 
     <div id="main">
@@ -23,7 +23,8 @@
             target.innerHTML = 'Loading...';
           }
           if(xhr.readyState == 4 && xhr.status == 200) {
-            target.innerHTML = xhr.responseText;
+              var json = JSON.parse(xhr.responseText);
+            target.innerHTML = json.regular;
           }
         }
         xhr.send();
