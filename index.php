@@ -79,7 +79,8 @@
           if(xhr.readyState == 4 && xhr.status == 200) {
             var result = xhr.responseText;
             console.log('Result: ' + result);
-            postResult(result);
+            var json  = JSON.parse(result);
+            postResult(json.volume);
           }
         };
         xhr.send(form_data);

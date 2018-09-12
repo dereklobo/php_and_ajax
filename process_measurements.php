@@ -14,7 +14,7 @@
   $volume = $length * $width * $height;
 
   if(is_ajax_request()) {
-    echo $volume;
+    echo json_encode(array('volume'=>$volume));
   } else {
     exit;
   }
