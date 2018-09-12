@@ -3,7 +3,7 @@
   // sleep(2);
 
   
-
+  session_start();
   if(!isset($_SESSION['favorites'])) { $_SESSION['favorites'] = array();
     // echo "the ne/w ".gettype($_SESSION['favorites']);
   }
