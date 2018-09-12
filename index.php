@@ -60,7 +60,10 @@
         var form = document.getElementById("measurement-form");
         var action = form.getAttribute("action");
 
-        var form_data = gatherFormData(form);
+        var form_data = new FormData(form);
+        for([key,value] of form_data.entries()){
+          console.log(key+ ":" + value);
+        }
 
        
 
@@ -70,7 +73,7 @@
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', action, true);
-        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        //xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
         xhr.onreadystatechange = function () {
           if(xhr.readyState == 4 && xhr.status == 200) {
